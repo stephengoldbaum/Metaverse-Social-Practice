@@ -26,16 +26,16 @@ namespace VerseCraft.Session
             var request = JsonSerializer.Deserialize<StartNextSessionRequest>(requestBody);
 
             var sessionId = new Guid().ToString();
-            var userId = request.UserID;
-            var requesterId = request.RequesterID;
+            var playerId = request.PlayerID;
+            var managerId = request.ManagerID;
 
             // Load the next from database
             var nextSessionConfiguration = new SessionConfiguration();
 
             var response = new SessionStartedEvent {
                 SessionID = sessionId,
-                User = userId,
-                Requester = requesterId,
+                Player = playerId,
+                Manager = managerId,
                 configuration = nextSessionConfiguration
             };
 
@@ -48,15 +48,15 @@ namespace VerseCraft.Session
     }
 
     public class StartNextSessionRequest {
-        public string UserID { get; set; }
+        public string PlayerID { get; set; }
         
-        public string RequesterID { get; set; }
+        public string ManagerID { get; set; }
     }
 
     public class SessionStartedEvent {
         public string SessionID { get; set; }
-        public string User { get; set; }
-        public string Requester { get; set; }
+        public string Player { get; set; }
+        public string Manager { get; set; }
         public DateTime Date { get; set; }
 
         public SessionConfiguration  configuration { get; set;}

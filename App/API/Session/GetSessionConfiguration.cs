@@ -20,13 +20,20 @@ namespace VerseCraft.Session
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             var json = @"
-{
-    'session': 'session-1',
-    'scene': 'FastFood',
-    'configuration': {
-        'lighting': 'bright'
-    }
-}
+            {
+                ""template_name"": ""Test - Fast Food template 1"",
+                ""session_location"": ""Fast Food"",
+                ""cashier_types"": [
+                    ""Speaking quickly"",
+                    ""Mumbling"",
+                    ""Friendly"",
+                    ""Grumpy"",
+                    ""Quiet"",
+                    ""Loud""
+                ],
+                ""sessionId"": ""00000000-0000-0000-0000-000000000000"",
+                ""playerId"": ""0"",
+            }
             ";
 
             return new OkObjectResult(json);

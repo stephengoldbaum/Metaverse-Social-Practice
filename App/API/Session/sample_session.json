@@ -1,0 +1,11 @@
+{
+    "id" : "0000-0000-0000-0000",
+    "Name" : "Play Fast Food",
+    "ManagerID" : "0",
+    "SceneConfiguration" : {
+        "TemplateName" : "Fast food Template",
+        "SessionLocation" : "Fast Food",
+        "CashierType" : "Speaking quickly"
+    }
+}
+
