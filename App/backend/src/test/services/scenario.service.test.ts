@@ -1,6 +1,6 @@
-import { ScenarioService } from './scenario.service';
-import { setupTestDB } from '../test/helpers/db';
-import { Scenario } from '../types';
+import { ScenarioService } from '../../services/scenario.service';
+import { setupTestDB } from '../helpers/db';
+import { Scenario } from '../../types';
 
 describe('ScenarioService', () => {
   setupTestDB();
