@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+
 const scenarioSchema = new mongoose.Schema({
   id: {
     type: String,

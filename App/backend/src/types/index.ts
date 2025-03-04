@@ -55,3 +55,4 @@ export interface ScenarioSort {
   field: 'name' | 'createdAt' | 'mediaType';
   direction: 'asc' | 'desc';
 }
+

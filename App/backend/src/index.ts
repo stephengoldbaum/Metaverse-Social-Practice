@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { scenarioRoutes } from './routes/scenario.routes';
 
+
 config();
 
 const app = express();

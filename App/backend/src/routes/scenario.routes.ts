@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import { ScenarioService } from '../services/scenario.service';
 import { ScenarioFilter, ScenarioSort } from '../types';
 
+
 const router = Router();
 const scenarioService = new ScenarioService();
 

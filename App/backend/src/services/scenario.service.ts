@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ScenarioModel } from '../models/scenario.model';
 import { Scenario, PaginatedResponse, ScenarioFilter, ScenarioSort } from '../types';
 
+
 export class ScenarioService {
   async registerScenario(data: Omit<Scenario, 'id' | 'createdAt' | 'updatedAt'>): Promise<Scenario> {
     const id = uuidv4();
