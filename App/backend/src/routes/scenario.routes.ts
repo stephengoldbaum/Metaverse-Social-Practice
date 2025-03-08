@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import asyncHandler from 'express-async-handler';
-import { ScenarioService } from '../services/scenario.service';
+import { ScenarioManagementService } from '../services/scenarioManagement.service';
 import { ScenarioFilter, ScenarioSort } from '../types';
 
 
 const router = Router();
-const scenarioService = new ScenarioService();
+const scenarioService = new ScenarioManagementService();
 
 const createScenarioSchema = z.object({
   name: z.string().min(1),
