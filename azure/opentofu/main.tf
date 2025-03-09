@@ -43,9 +43,9 @@ resource "azurerm_linux_web_app" "backend" {
 
   # Define the Docker container configuration
   site_config {
-    application_stack {
-      docker_image     = "mcr.microsoft.com/dotnet/aspnet"  # Base ASP.NET runtime image
-      docker_image_tag = "7.0"  # .NET 7.0 version
+    application_stack {      
+      docker_image_name = "mcr.microsoft.com/dotnet/aspnet"  # Base ASP.NET runtime image
+      dotnet_version = "7.0"
     }
   }
 

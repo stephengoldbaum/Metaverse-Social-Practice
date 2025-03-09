@@ -47,3 +47,4 @@ This will start both the backend server and frontend development server concurre
 - **Backend**: Node.js, Express.js, MongoDB
 - **Language**: TypeScript
 - **API**: REST with JSON
+- **Cloud Infrastructure**: Azure (see [infrastructure documentation](../docs/azure-infrastructure.md))

@@ -19,6 +19,7 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 # Copy custom Nginx configuration
 COPY App/frontend/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80  # Expose port 80 for web traffic
+# Expose port 80 for web traffic
+EXPOSE 80  
 # Start Nginx in the foreground (prevents container from exiting)
 CMD ["nginx", "-g", "daemon off;"]
