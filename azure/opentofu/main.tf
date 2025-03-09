@@ -18,7 +18,7 @@ provider "azurerm" {
 
 # Define common variables used throughout the configuration
 locals {
-  location        = "East US"  # Azure region to deploy resources
+  location        = "Central US"  # Azure region to deploy resources
   environment_name = "prod"    # Environment name (prod, dev, test)
   app_name        = "metaverse-social"  # Base name for all resources
 }
@@ -38,25 +38,25 @@ resource "azurerm_linux_web_app" "backend" {
   name                = "${local.app_name}-backend-${local.environment_name}"
   location            = local.location
   resource_group_name = var.resource_group_name
-  service_plan_id     = azurerm_service_plan.backend.id  # Link to the service plan above
-  https_only          = true  # Force HTTPS for security
+  service_plan_id     = azurerm_service_plan.backend.id
+  https_only          = true
 
-  # Define the Docker container configuration
   site_config {
-    application_stack {      
-      docker_image_name = "mcr.microsoft.com/dotnet/aspnet"  # Base ASP.NET runtime image
-      dotnet_version = "7.0"
+    application_stack {
+      # Corrected the typo (dockdocker_image_name → docker_image)
+      # Using official Node.js image instead of ASP.NET
+      docker_image = "node"
+      docker_image_tag = "18-alpine"
     }
   }
 
-  # Environment variables for the App Service
   app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"  # Don't persist to file system
-    "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"  # Docker Hub
-    "ASPNETCORE_ENVIRONMENT"              = local.environment_name  # prod, dev, etc.
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+    "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
+    # Changed from ASPNETCORE to NODE_ENV
+    "NODE_ENV"                            = local.environment_name
   }
 }
-
 # Frontend Static Web App - This hosts the React frontend application
 # Static Web Apps provide global CDN, CI/CD, and custom domains
 resource "azurerm_static_site" "frontend" {
@@ -79,5 +79,5 @@ output "backend_url" {
 }
 
 output "frontend_url" {
-  value = azurerm_static_site.frontend.default_hostname
+  value = azurerm_static_site.frontend.default_host_name
 }

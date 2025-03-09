@@ -14,6 +14,7 @@ This directory contains comprehensive documentation for the Metaverse Social Pra
 ### Operations
 - [Deployment Procedures] - (To be added)
 - [Monitoring and Alerts] - (To be added)
+- [Infrastructure Troubleshooting](infrastructure-troubleshooting.md) - Solutions to common infrastructure deployment issues
 
 ## Contributing to Documentation
 

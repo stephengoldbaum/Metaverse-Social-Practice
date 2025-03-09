@@ -143,7 +143,7 @@ public class LanguageManager : MonoBehaviour
         // fa, // Persian (Farsi)	
         // pl, // Polish	
         pt, // Portuguese	
-        // pa, // Punjabi (Eastern)	
+        // pa, // Punjabi (Centralern)	
         // qu, // Quechua	
         // rm, // Romansh	
         // ro, // Romanian	

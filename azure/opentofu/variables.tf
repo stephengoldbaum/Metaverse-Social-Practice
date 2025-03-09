@@ -8,11 +8,11 @@ variable "resource_group_name" {
   # No default - this must be provided at runtime or in a .tfvars file
 }
 
-# Optional: The Azure region for deployment, defaults to East US
+# Optional: The Azure region for deployment, defaults to Central US
 variable "location" {
   description = "The Azure region to deploy resources"
   type        = string
-  default     = "East US"  # Change this if you prefer a different region
+  default     = "Central US"  # Change this if you prefer a different region
 }
 
 # Optional: Environment name for resource naming and configuration
