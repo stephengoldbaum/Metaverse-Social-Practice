@@ -1,5 +1,14 @@
 {
-  "dependencies": {
-    "next": "^15.1.7"
+  "name": "metaverse-social",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd App/frontend && npm install && npm run build",
+    "build:backend": "cd App/backend && npm install && npm run build",
+    "deploy:infra": "cd azure/opentofu && tofu apply -auto-approve",
+    "deploy:apps": "npm run deploy:frontend && npm run deploy:backend",
+    "deploy:frontend": "cd App/frontend && swa deploy dist --deployment-token $SWA_DEPLOYMENT_TOKEN",
+    "deploy:backend": "cd App/backend && az webapp deployment source config-zip -g $RESOURCE_GROUP -n metaverse-social-backend-prod --src dist.zip",
+    "deploy": "npm run deploy:infra && npm run build && npm run deploy:apps"
   }
 }
