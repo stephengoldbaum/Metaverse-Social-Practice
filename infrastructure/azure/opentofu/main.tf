@@ -33,6 +33,41 @@ resource "azurerm_service_plan" "backend" {
   sku_name            = "B1"     # Basic tier, suitable for development/light production
 }
 
+# MongoDB-compatible database using Azure Cosmos DB
+resource "azurerm_cosmosdb_account" "mongodb" {
+  name                = "${local.app_name}-db-${local.environment_name}"
+  location            = local.location
+  resource_group_name = var.resource_group_name
+  offer_type          = "Standard"
+  kind                = "MongoDB"
+
+  capabilities {
+    name = "EnableMongo"
+  }
+
+  capabilities {
+    name = "EnableServerless"
+  }
+
+  consistency_policy {
+    consistency_level = "Session"
+  }
+
+  geo_location {
+    location          = local.location
+    failover_priority = 0
+  }
+  
+  mongo_server_version = "4.2"
+}
+
+# Create a MongoDB database within the Cosmos account
+resource "azurerm_cosmosdb_mongo_database" "main" {
+  name                = "${local.app_name}-mongodb"
+  resource_group_name = azurerm_cosmosdb_account.mongodb.resource_group_name
+  account_name        = azurerm_cosmosdb_account.mongodb.name
+}
+
 # Backend App Service - This hosts the Scenario Management service (.NET Core API)
 resource "azurerm_linux_web_app" "backend" {
   name                = "${local.app_name}-backend-${local.environment_name}"
@@ -43,9 +78,7 @@ resource "azurerm_linux_web_app" "backend" {
 
   site_config {
     application_stack {
-      # Corrected the typo (dockdocker_image_name → docker_image)
-      # Using official Node.js image instead of ASP.NET
-      docker_image = "node"
+      docker_image     = "node"
       docker_image_tag = "18-alpine"
     }
   }
@@ -53,10 +86,11 @@ resource "azurerm_linux_web_app" "backend" {
   app_settings = {
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
-    # Changed from ASPNETCORE to NODE_ENV
     "NODE_ENV"                            = local.environment_name
+    "MONGODB_URI"                         = azurerm_cosmosdb_account.mongodb.connection_strings[0]
   }
 }
+
 # Frontend Static Web App - This hosts the React frontend application
 # Static Web Apps provide global CDN, CI/CD, and custom domains
 resource "azurerm_static_site" "frontend" {
@@ -74,6 +108,11 @@ resource "azurerm_static_site" "frontend" {
 }
 
 # Output values that will be displayed after deployment
+output "mongodb_connection_string" {
+  value     = azurerm_cosmosdb_account.mongodb.connection_strings[0]
+  sensitive = true
+}
+
 output "backend_url" {
   value = "https://${azurerm_linux_web_app.backend.default_hostname}"
 }
